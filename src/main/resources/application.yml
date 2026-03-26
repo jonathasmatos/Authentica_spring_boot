@@ -1,0 +1,61 @@
+# Configurações do Servidor
+server:
+  port: ${PORT:8080}
+
+# Configurações do Spring
+spring:
+  application:
+    name: authentica
+  
+  # CONFIGURAÇÃO EMPRESARIAL: PostgreSQL
+  # Professor explica: Mudamos do H2 (fantasma) para o Postgres (real).
+  # Agora seus dados ficarão salvos permanentemente no seu servidor local.
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}}
+    username: ${SPRING_DATASOURCE_USERNAME:${PGUSER}}
+    password: ${SPRING_DATASOURCE_PASSWORD:${PGPASSWORD}}
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
+
+  # Controle de Versão de Banco (Flyway)
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}}
+    user: ${SPRING_DATASOURCE_USERNAME:${PGUSER}}
+    password: ${SPRING_DATASOURCE_PASSWORD:${PGPASSWORD}}
+    connect-retries: 10
+    validate-on-migrate: false # Ignora erro de checksum e arquivos deletados (V6/V7)
+    out-of-order: true # Permite organizar migrações fora de ordem se necessário
+
+  mail:
+    host: ${MAIL_HOST:smtp.mailtrap.io}
+    port: ${MAIL_PORT:2525}
+    username: ${MAIL_USER:user_mock}
+    password: ${MAIL_PASSWORD:pass_mock}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# Configurações de Segurança Customizadas
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:chave-local-minima-32-caracteres-dev}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080}
+
+# Configuração do Swagger
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
