@@ -66,6 +66,14 @@ docker-compose up -d
 Explore todos os endpoints de forma visual:
 👉 [Acesse o Swagger UI aqui](https://authenticaspringboot-production.up.railway.app/swagger-ui/index.html)
 
+#### 🔑 Como Testar no Swagger (Passo-a-passo):
+1. No Swagger, localize o endpoint `POST /auth/authenticate`.
+2. Use as credenciais acima para fazer o login.
+3. Copie o valor do `token` retornado no corpo da resposta.
+4. Clique no botão verde **Authorize** no topo da página.
+5. Cole o token e clique em **Authorize**.
+6. Agora você pode testar todos os endpoints protegidos (como os de `/admin/**`).
+
 ### 📮 Postman Collection
 Fornece instruções para importar a `Authentica_Postman_Collection.json`.
 
