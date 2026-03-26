@@ -12,8 +12,12 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @OpenAPIDefinition(
-    info = @Info(title = "Authentica API", version = "v1", description = "Playout para treinamento de QA"),
-    security = @SecurityRequirement(name = "bearerAuth")
+    info = @Info(title = "Authentica API", version = "v1", description = "Playground para treinamento de QA"),
+    security = @SecurityRequirement(name = "bearerAuth"),
+    servers = {
+        @io.swagger.v3.oas.annotations.servers.Server(url = "https://authenticaspringboot-production.up.railway.app", description = "Servidor de Produção (Railway)"),
+        @io.swagger.v3.oas.annotations.servers.Server(url = "http://localhost:8080", description = "Servidor Local")
+    }
 )
 @SecurityScheme(
     name = "bearerAuth",
