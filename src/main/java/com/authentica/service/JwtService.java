@@ -19,8 +19,13 @@ public class JwtService {
     private String secret;
 
     public String generateToken(User user) {
+        List<String> roles = user.getRoles().stream()
+                .map(role -> role.getName())
+                .toList();
+
         return Jwts.builder()
                 .subject(user.getEmail())
+                .claim("roles", roles)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 7200000))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)))
