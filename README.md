@@ -78,9 +78,12 @@ Explore todos os endpoints de forma visual:
 Fornece instruções para importar a `Authentica_Postman_Collection.json`.
 
 ### 🔑 Credenciais de Acesso (Default Seed)
-Utilize os dados abaixo para o primeiro acesso administrativo:
-- **E-mail**: `admin@admin.com`
-- **Senha**: `admin123`
+Utilize estes dados para o seu primeiro acesso:
+- **E-mail**: `teste@qa.com`
+- **Senha**: `senha1213`
+
+> [!TIP]
+> Caso o ambiente em nuvem já tenha sido utilizado, você pode criar seu próprio usuário no endpoint `/auth/register` e utilizá-lo para os testes!
 
 ### 💡 Sugestões de Cenários de Teste
 1. **Segurança**: Tente acessar os endpoints `/admin/**` sem um token ou com um token de usuário sem perfil `ADMIN`.
