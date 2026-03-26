@@ -3,6 +3,7 @@ package com.authentica.service;
 import com.authentica.dto.AuthenticationResponse;
 import com.authentica.dto.RegisterRequest;
 import com.authentica.model.User;
+import com.authentica.repository.RoleRepository;
 import com.authentica.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegistrationService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
@@ -25,6 +27,11 @@ public class RegistrationService {
         var user = new User(
                 request.email(),
                 passwordEncoder.encode(request.password()));
+
+        // Atribui automaticamente ROLE_ADMIN para facilitar os testes da comunidade
+        roleRepository.findByName("ADMIN").ifPresent(adminRole -> {
+            user.getRoles().add(adminRole);
+        });
 
         userRepository.save(user);
         return new AuthenticationResponse(jwtService.generateToken(user));
